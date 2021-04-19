@@ -1,0 +1,26 @@
+{
+  "name": "freecodecamp-microservices",
+  "version": "1.0.0",
+  "description": "final projects of the freecodecamp apis and microservices course",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc && node build/index.js",
+    "start": "NODE_ENV=production node build/index.js"
+  },
+  "keywords": [
+    "freecodecamp",
+    "apis",
+    "microservices"
+  ],
+  "author": "sterczewski.dev@protonmail.ch",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "@types/node": "^14.14.41"
+  }
+}
