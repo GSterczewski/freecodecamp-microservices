@@ -16,7 +16,3 @@ export type TimestampResponse = {
   error?:string;
   
 }
-
-export type TimestampErrorResponse = {
-  error:string;
-}

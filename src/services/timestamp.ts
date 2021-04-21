@@ -1,6 +1,5 @@
-import * as express from "express";
 
-import { TimestampErrorResponse, TimestampResponse } from "../types";
+import {  TimestampResponse } from "../types";
 
 export class TimestampService {
   private isValidDate(dateString:string):boolean{
