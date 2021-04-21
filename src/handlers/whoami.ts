@@ -1,9 +1,10 @@
-import * as express from "express";
-import { WhoamiResponse, Service } from "../types";
 
-export default (service: Service<WhoamiResponse>) => 
-  (request: express.Request, response:express.Response):void => {
-      response
+import { WhoamiResponse, HandlerCreator } from "../types";
+
+const createWhoamiHandler: HandlerCreator<WhoamiResponse> = service => (request,response) => {
+  response
       .status(200)
       .json(service.parseRequest(request))
-  };
+}; 
+
+export default createWhoamiHandler;

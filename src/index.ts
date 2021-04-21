@@ -1,10 +1,7 @@
 import * as express from "express";
 import { config }  from "dotenv";
-import createWhoamiHandler from "./handlers/whoami";
-import { WhoamiService } from "./services/whoami";
-
-type HTTPHandler = (request: express.Request, response: express.Response) => void
-
+import handlers from "./handlers/index";
+import { HTTPMethods, Handler } from "./types";
 
 class App {
   private localPort:string;
@@ -14,7 +11,7 @@ class App {
   private handlers: Array<{
     method: string;
     route:string;
-    handler: HTTPHandler;
+    handler: Handler;
   }> = []
   constructor(){
     config();
@@ -27,7 +24,7 @@ class App {
       this.express[method](route,handler)
     })
   }
-  public registerHandler(route:string, method:string, handler:HTTPHandler):void{
+  public registerHandler(route:string, method:string, handler:Handler):void{
     this.handlers.push({
       route,
       method,
@@ -52,8 +49,9 @@ class App {
       this.runDev()
     }
   }
-}
+};
 
 const app = new App();
-app.registerHandler("/whoami","get", createWhoamiHandler(new WhoamiService()))
+app.registerHandler("/api/whoami",HTTPMethods.get, handlers.whoami);
+app.registerHandler("/api/timestamp/:date",HTTPMethods.get, handlers.timestamp);
 app.run();
