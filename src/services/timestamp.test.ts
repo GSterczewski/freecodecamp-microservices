@@ -47,8 +47,8 @@ const expected3 = {
     const result3 = service.parseRequest("2015-12-");      
     const result4 = service.parseRequest("2015-");      
           
-     expect(result1.utc).to.equal(expected1.utc);    
-     expect(result1.unix).to.equal(expected1.unix);    
+    expect(result1.utc).to.equal(expected1.utc);    
+    expect(result1.unix).to.equal(expected1.unix);    
     expect(result2.utc).to.equal(expected2.utc);    
     expect(result2.unix).to.equal(expected2.unix);    
     expect(result3.utc).to.equal(expected2.utc);    
@@ -57,4 +57,9 @@ const expected3 = {
     expect(result4.unix).to.equal(expected3.unix);
 
   });
+  it("should return error message when input date was invalid", ()=>{
+    const invalidRequest = service.parseRequest("abcd");
+    expect(invalidRequest).to.haveOwnProperty("error");
+    expect(invalidRequest.error).to.equal("Invalid date");
+    })
 })
