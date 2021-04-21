@@ -20,7 +20,6 @@ export class TimestampService {
   
   private timestampFromUnix(unixTime:number):TimestampResponse{
     try{
-      
       const date = new Date(unixTime);
       return this.formatResponse(unixTime, date);
     } catch(err){

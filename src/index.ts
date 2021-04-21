@@ -53,5 +53,5 @@ class App {
 
 const app = new App();
 app.registerHandler("/api/whoami",HTTPMethods.get, handlers.whoami);
-app.registerHandler("/api/timestamp/:date",HTTPMethods.get, handlers.timestamp);
+app.registerHandler("/api/timestamp/:date?",HTTPMethods.get, handlers.timestamp);
 app.run();
