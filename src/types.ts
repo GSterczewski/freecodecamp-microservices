@@ -1,6 +1,5 @@
 import * as express from "express";
 
-//export type Service<T> = (request: express.Request) => T
 
 export interface Service<T> {
   parseRequest(request:express.Request):T
@@ -10,3 +9,14 @@ export type WhoamiResponse = {
   software:string;
   ipaddress:string;
 };
+
+export type TimestampResponse = {
+  unix?:number;
+  utc?:string;
+  error?:string;
+  
+}
+
+export type TimestampErrorResponse = {
+  error:string;
+}
