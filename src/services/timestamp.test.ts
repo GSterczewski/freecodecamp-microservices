@@ -1,4 +1,4 @@
-import { TimestampService } from "./timestamp";
+import  TimestampService  from "./timestamp";
 import { expect } from "chai";
 
 

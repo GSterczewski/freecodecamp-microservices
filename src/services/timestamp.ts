@@ -1,7 +1,7 @@
 
 import {  TimestampResponse } from "../types";
 
-export class TimestampService {
+ class TimestampService {
   private isValidDate(dateString:string):boolean{
     return !isNaN(Date.parse(dateString));
   }
@@ -58,3 +58,4 @@ export class TimestampService {
     return this.timestampFromUnix(Number(input))
   }
 }
+export default TimestampService;

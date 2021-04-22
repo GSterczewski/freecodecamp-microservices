@@ -1,14 +1,13 @@
-import { Request } from "express";
-import { WhoamiResponse } from "../types";
+import { WhoamiResponse, Request } from "../types";
 
-
-
-export class WhoamiService {
-  public parseRequest({ headers, socket }: Request):WhoamiResponse {
+class WhoamiService{
+  public parseRequest(request: Request):WhoamiResponse{
     return Object.freeze({
-      language : headers["accept-language"],
-      software : headers["user-agent"],
-      ipaddress : socket.remoteAddress
+      ipaddress: request.socket.remoteAddress,
+      software: request.headers["user-agent"],
+      language: request.headers["accept-language"]
     })
   }
 }
+
+export default WhoamiService;
