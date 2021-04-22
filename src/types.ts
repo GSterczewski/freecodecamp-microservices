@@ -22,5 +22,11 @@ export type TimestampResponse = {
   
 };
 
+export type FileMetadataResponse = {
+  name:string;
+  type:string;
+  size:number;
+}
+
 export type Handler = (request: Request, response: Response) => void;
 export type HandlerCreator<T> = (service: Service<T>) => Handler;
