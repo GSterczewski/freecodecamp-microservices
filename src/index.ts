@@ -13,12 +13,18 @@ class App {
     route:string;
     handler: Handler;
   }> = []
+
   constructor(){
     config();
     this.appTitle = process.env.APP_TITLE;
     this.localPort = process.env.LOCAL_PORT;
     this.productionPort = process.env.PRODUCTION_PORT;
+    //this.initMiddlewares()
   }
+  /*
+  private initMiddlewares(){
+    this.express.use(express.static("public"));
+  }*/
   private initHandlers():void{
     this.handlers.forEach(({route,method,handler}) => {
       this.express[method](route,handler)
@@ -54,4 +60,5 @@ class App {
 const app = new App();
 app.registerHandler("/api/whoami",HTTPMethods.get, handlers.whoami);
 app.registerHandler("/api/timestamp/:date?",HTTPMethods.get, handlers.timestamp);
+app.registerHandler("/metadata",HTTPMethods.get, handlers.metadataService);
 app.run();
