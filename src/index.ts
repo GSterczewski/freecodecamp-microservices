@@ -1,64 +1,18 @@
 import * as express from "express";
-import { config }  from "dotenv";
 import handlers from "./handlers/index";
-import { HTTPMethods, Handler } from "./types";
+import { config }  from "dotenv";
+import * as multer from "multer";
 
-class App {
-  private localPort:string;
-  private productionPort:string;
-  private appTitle:string;
-  private express = express();
-  private handlers: Array<{
-    method: string;
-    route:string;
-    handler: Handler;
-  }> = []
+config();
 
-  constructor(){
-    config();
-    this.appTitle = process.env.APP_TITLE;
-    this.localPort = process.env.LOCAL_PORT;
-    this.productionPort = process.env.PRODUCTION_PORT;
-    //this.initMiddlewares()
-  }
-  /*
-  private initMiddlewares(){
-    this.express.use(express.static("public"));
-  }*/
-  private initHandlers():void{
-    this.handlers.forEach(({route,method,handler}) => {
-      this.express[method](route,handler)
-    })
-  }
-  public registerHandler(route:string, method:string, handler:Handler):void{
-    this.handlers.push({
-      route,
-      method,
-      handler
-    })
-  }
-  private runDev():void{
+const app = express();
+const upload = multer();
+app.get("/metadata", handlers.metadataService);
+app.get("/api/whoami", handlers.whoami);
+app.get("/api/timestamp/:date?", handlers.timestamp);
+app.post("/api/metadata", upload.single("file"), handlers.api.metadata);
 
-    this.express.listen(this.localPort, ()=>{
-      console.log(`${this.appTitle} is running on port ${this.localPort}`)
-    });
-  }
-  private runProduction():void {
-    this.express.listen(this.productionPort);
-  }
-  public run(){
-    this.initHandlers()
-    if(process.env.NODE_ENV === "production"){
-      this.runProduction()
-    }
-    else {
-      this.runDev()
-    }
-  }
-};
 
-const app = new App();
-app.registerHandler("/api/whoami",HTTPMethods.get, handlers.whoami);
-app.registerHandler("/api/timestamp/:date?",HTTPMethods.get, handlers.timestamp);
-app.registerHandler("/metadata",HTTPMethods.get, handlers.metadataService);
-app.run();
+app.listen(process.env.PORT, ()=>{
+  console.log(`${process.env.APP_TITLE} running on port : ${process.env.PORT}`)
+});
